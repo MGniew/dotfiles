@@ -1,1 +1,0 @@
-/home/gobr/.vim

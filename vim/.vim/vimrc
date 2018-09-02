@@ -1,0 +1,96 @@
+" Setting up Vundle - the vim plugin bundler
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+if !filereadable(vundle_readme) 
+    echo "Installing Vundle.."
+    echo ""
+    silent !mkdir -p ~/.vim/bundle
+    silent !git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/vundle
+    let iCanHazVundle=0
+endif
+set nocompatible              " be iMproved, required
+filetype off                  " required
+set rtp+=~/.vim/bundle/vundle/
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'morhetz/gruvbox'
+Plugin 'majutsushi/tagbar'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'petRUShka/vim-opencl'
+Plugin 'qpkorr/vim-bufkill'
+if iCanHazVundle == 0
+    echo "Installing Vundles, please ignore key map error messages"
+    echo ""
+	:PluginInstall
+	cd ~/.vim/bundle/YouCompleteMe
+	!./install.py --clang-completer
+  
+endif
+call vundle#end() 
+filetype plugin indent on " load filetype plugins/indent settings
+" Setting up Vundle - the vim plugin bundler end
+
+
+"Airline + Airline themes
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='bubblegum'
+
+
+" NERDTree configuration
+autocmd vimenter * NERDTree | wincmd p
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" GruvBox
+syntax on
+set background=dark
+set t_Co=256
+colorscheme gruvbox
+
+"YouCompleteMe
+let g:ycm_python_binary_path = 'python'
+let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
+
+"Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+
+
+
+" Options
+set mouse=a
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set textwidth=79
+set expandtab
+set autoindent
+set number
+set autowrite
+set foldmethod=syntax
+
+
+" Bindings
+nmap <F2> :NERDTreeToggle<CR>
+nmap <F3> :TagbarToggle<CR>
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
+
+au VimEnter * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+au VimLeave * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
