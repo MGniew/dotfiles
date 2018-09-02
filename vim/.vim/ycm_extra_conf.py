@@ -1,3 +1,5 @@
+# Stolen from https://github.com/JDevlieghere/dotfiles/
+# Maybe someday I will prepare my own solution (probably won't. but maybe!)
 import os
 import os.path
 import fnmatch
