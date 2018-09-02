@@ -82,6 +82,7 @@ set foldmethod=syntax
 
 
 " Bindings
+nmap :w! :w !sudo tee %
 nmap <F2> :NERDTreeToggle<CR>
 nmap <F3> :TagbarToggle<CR>
 
