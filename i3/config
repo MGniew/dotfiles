@@ -30,7 +30,7 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec --no-startup-id alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -126,22 +126,16 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 5 px or 5 ppt
+        bindsym k resize grow height 5 px or 5 ppt
+        bindsym j resize shrink height 5 px or 5 ppt
+        bindsym l resize grow width 5 px or 5 ppt
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 5 px or 5 ppt
+        bindsym Down resize grow height 5 px or 5 ppt
+        bindsym Up resize shrink height 5 px or 5 ppt
+        bindsym Right resize grow width 5 px or 5 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -153,11 +147,55 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+
+    i3bar_command i3bar
+    colors {
+        background #282828
+        statusline #ebdbb2
+        separator  #d3869b
+    }
+
+    #font pango:monospace 10
+    font pango:SourceCodePro Regular 11
+
 	position top
-    status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks -vvv
-    #status_command i3status
+    status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks -vv
 }
 
-exec_always --no-startup-id xsetroot -solid "#006600"
+exec_always --no-startup-id feh --bg-fill --randomize ~/Images/wallpapers/*
 exec --no-startup-id nm-applet
 exec --no-startup-id pasystray
+exec --no-startup-id blueman-applet
+exec --no-startup-id parcellite
+exec --no-startup-id cbatticon -i symbolic
+exec --no-startup-id picom --experimental-backends
+
+
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
+
+bindsym --release $mod+Print exec --no-startup-id maim --hidecursor --select ~/Images/screenshot/$(date +maim-%Y-%m-%d-%H-%M-%S-%Z-%s-${RANDOM}.png)
+bindsym --release $mod+Shift+Print exec --no-startup-id maim --hidecursor ~/Images/screenshot/$(date +maim-%Y-%m-%d-%H-%M-%S-%Z-%s-${RANDOM}.png)
+
+bindsym $mod+p exec --no-startup-id ~/.config/i3/scripts/lock.sh
+exec --no-startup-id xss-lock --transfer-sleep-lock -- ~/.config/i3/scripts/lock.sh
+
+# Set inner/outer gaps
+gaps inner 10
+gaps outer 5
+#
+# # Activate smart borders (always)
+smart_gaps on
+
+for_window [class=".*"] border pixel 5
+smart_borders on
+
+# class                 border  backgr. text    indicator child_border                                                                     
+client.focused_inactive #0d1010 #282828 #ebdbb2 #0d1010 #504945                                                                            
+client.unfocused        #0d1010 #282828 #ebdbb2 #424242 #504945                                                                           
+client.focused          #ebdbb2 #ebdbb2 #000000 #d9d9d9 #ebdbb2

@@ -14,7 +14,7 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'davidhalter/jedi-vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-syntastic/syntastic'
@@ -26,8 +26,6 @@ if iCanHazVundle == 0
     echo "Installing Vundles, please ignore key map error messages"
     echo ""
 	:PluginInstall
-	cd ~/.vim/bundle/YouCompleteMe
-	!./install.py --clang-completer
   
 endif
 call vundle#end() 
@@ -52,9 +50,9 @@ set background=dark
 set t_Co=256
 colorscheme gruvbox
 
-"YouCompleteMe
-let g:ycm_python_binary_path = 'python'
-let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
+"Jedi
+autocmd FileType python setlocal completeopt-=preview
+let g:jedi#popup_on_dot = 0
 
 "Syntastic
 set statusline+=%#warningmsg#
@@ -71,17 +69,18 @@ set mouse=a
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set textwidth=79
 set expandtab
 set autoindent
 set number
 set autowrite
 set foldmethod=syntax
+set ttymouse=sgr
+set colorcolumn=79
 
 
 " Bindings
 nmap <F2> :NERDTreeToggle<CR>
-nmap <F3> :TagbarToggle<CR>
+set pastetoggle=<F3>
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>

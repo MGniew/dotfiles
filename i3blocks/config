@@ -1,31 +1,28 @@
-[spotify]
-command=$SCRIPT_DIR/spotify_blocklet
-#command=echo "<span background='red' foreground='white'>$($SCRIPT_DIR/spotify_blocklet)</span>\n"
-interval=1
-color=#74AEAB
-min_width=1400
-align=center
-separator=false
-markup=pango
+command=$SCRIPT_DIR/$BLOCK_NAME
+separator_block_width=15
+color=#FBF1C7FF
+
+#[spotify]
+# command=$SCRIPT_DIR/spotify_blocklet
+# #command=echo "<span background='red' foreground='white'>$($SCRIPT_DIR/spotify_blocklet)</span>\n"
+# interval=1
+# color=#74AEAB
+# min_width=1400
+# align=center
+# separator=false
+# markup=pango
 
 [iface]
-command=$SCRIPT_DIR/iface
-label=eno1:
-#IFACE=eno1
-#ADDRESS_FAMILY=inet6?
+label=IP:
 color=#00FF00
 interval=10
 
 [memory]
-command=$SCRIPT_DIR/memory
-label=MEM
+label=MEM: 
 interval=30
 
 [disk]
-command=$SCRIPT_DIR/disk
-#label=HOME
-#DIR="/"
-#ALERT_LOW=10
+label=DISK: 
 interval=30
 
 [time]
