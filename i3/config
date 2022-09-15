@@ -156,13 +156,14 @@ bar {
     }
 
     #font pango:monospace 10
-    font pango:SourceCodePro Regular 11
+    font pango:SourceCodePro Regular 9
 
 	position top
     status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks -vv
 }
 
-exec_always --no-startup-id feh --bg-fill --randomize ~/Images/wallpapers/*
+exec_always --no-startup-id feh  \
+  --bg-scale --randomize ~/Images/wallpapers/*
 exec --no-startup-id nm-applet
 exec --no-startup-id pasystray
 exec --no-startup-id blueman-applet
